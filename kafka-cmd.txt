@@ -1,0 +1,19 @@
+
+1.Install gradle:
+https://www.tutorialspoint.com/gradle/gradle_installation.htm
+//check version
+>gradle -v 
+
+2.Download apache kafka
+
+3.Start zookeeper.start bat file:
+C:\kafka_2.13-2.8.1\bin\windows>zookeeper-server-start.bat C:\kafka_2.13-2.8.1\config\zookeeper.properties
+
+4.Start kafka server:
+C:\kafka_2.13-2.8.1\bin\windows>kafka-server-start.bat C:\kafka_2.13-2.8.1\config\server.properties
+
+5.Topic creation syntax:
+C:\kafka_2.13-2.8.1\bin\windows>kafka-topics.bat --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 -topic message
+
+6.Check if data is published:
+C:\kafka_2.13-2.8.1\bin\windows>kafka-console-consumer.bat --bootstrap-server localhost:9092 --topic message --from-begining
