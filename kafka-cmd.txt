@@ -14,10 +14,10 @@ C:\kafka_2.12-2.8.0\bin\windows>zookeeper-server-start.bat C:\kafka_2.12-2.8.0\c
 C:\kafka_2.12-2.8.0\bin\windows>kafka-server-start.bat C:\kafka_2.12-2.8.0\config\server.properties
 
 5.Topic creation syntax:
-C:\kafka_2.12-2.8.0\bin\windows>kafka-topics.bat --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 -topic message
+C:\kafka_2.12-2.8.0\bin\windows>kafka-topics.bat --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 -topic kafka
 
 6.Check if data is published:
-C:\kafka_2.12-2.8.0\bin\windows>kafka-console-consumer.bat --bootstrap-server localhost:9092 --topic message --from-begining
+C:\kafka_2.12-2.8.0\bin\windows>kafka-console-consumer.bat --bootstrap-server localhost:9092 --topic kafka --from-begining
 
 7.Delete Topic: 
  kafka-run-class.bat kafka.admin.TopicCommand --delete --topic [topic_to_delete] --zookeeper localhost:2181
