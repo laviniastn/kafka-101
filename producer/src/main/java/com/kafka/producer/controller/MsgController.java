@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("kafka")
-public class UserController {
+public class MsgController {
 
 	@Autowired
 	private KafkaTemplate<String, String> kafkaTemplate;
