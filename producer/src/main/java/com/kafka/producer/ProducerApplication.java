@@ -15,12 +15,12 @@ public class ProducerApplication {
 	@Autowired
 	private KafkaTemplate <String, Object> template;
 	
-	private String topic="top";
+	private String topic="kafka";
 	
 	@GetMapping("/publish/{name}")
 	public String publishMessage(@PathVariable String name) {
 		template.send(topic,"Hi "+name+"!");
-		return "Data published!";
+		return "Data published! -> " + name;
 	}
 	
 	public static void main(String[] args) {
