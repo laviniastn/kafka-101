@@ -1,4 +1,4 @@
-package com.kafka.consumer.model;
+package com.kafka.producer.model;
 
 public class Message {
 

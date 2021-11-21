@@ -2,25 +2,27 @@ package com.kafka.producer.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.kafka.producer.model.Message;
 
 @RestController
 @RequestMapping("kafka")
 public class MsgController {
 
 	@Autowired
-	private KafkaTemplate<String, String> kafkaTemplate;
+	private KafkaTemplate<String, Message> kafkaTemplate;
 
-	private static final String TOPIC = "kafka";
+	private static final String TOPIC = "kafka_json";
 
-	@GetMapping("/publish/{msg}")
-	public String post(@PathVariable("msg") final String name) {
+	@PostMapping(value = "/post", consumes = { "application/json" }, produces = { "application/json" })
+	public String post(@RequestBody Message msg) {
 
-		kafkaTemplate.send(TOPIC, "Message");
+		kafkaTemplate.send(TOPIC, new Message("Lavinia", "Message"));
 
-		return "Published successfully";
+		return "Message published successfully";
 	}
 }

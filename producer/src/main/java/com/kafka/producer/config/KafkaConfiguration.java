@@ -1,22 +1,24 @@
 package com.kafka.producer.config;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.apache.kafka.clients.producer.ProducerConfig;
+import org.apache.kafka.common.serialization.StringSerializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.core.DefaultKafkaProducerFactory;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.core.ProducerFactory;
 import org.springframework.kafka.support.serializer.JsonSerializer;
-import org.apache.kafka.common.serialization.*;
 
-import java.util.HashMap;
-import java.util.Map;
+import com.kafka.producer.model.Message;
 
 @Configuration
 public class KafkaConfiguration {
 
 	@Bean
-	public ProducerFactory<String, String> producerFactory() {
+	public ProducerFactory<String, Message> producerFactory() {
 		Map<String, Object> config = new HashMap<>();
 
 		config.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "127.0.0.1:9092");
@@ -27,7 +29,7 @@ public class KafkaConfiguration {
 	}
 
 	@Bean
-	public KafkaTemplate<String, String> kafkaTemplate() {
+	public KafkaTemplate<String, Message> kafkaTemplate() {
 		return new KafkaTemplate<>(producerFactory());
 	}
 
