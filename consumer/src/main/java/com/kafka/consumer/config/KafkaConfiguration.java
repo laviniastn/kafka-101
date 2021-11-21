@@ -11,6 +11,9 @@ import org.springframework.kafka.annotation.EnableKafka;
 import org.springframework.kafka.config.ConcurrentKafkaListenerContainerFactory;
 import org.springframework.kafka.core.ConsumerFactory;
 import org.springframework.kafka.core.DefaultKafkaConsumerFactory;
+import org.springframework.kafka.support.serializer.JsonDeserializer;
+
+import com.kafka.consumer.model.*;
 
 @EnableKafka
 @Configuration
@@ -38,4 +41,43 @@ public class KafkaConfiguration {
 		return factory;
 		
 	}
+	
+	@Bean
+    public ConsumerFactory<String, Message> messageConsumerFactory() {
+        Map<String, Object> config = new HashMap<>();
+
+        config.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "127.0.0.1:9092");
+        config.put(ConsumerConfig.GROUP_ID_CONFIG, "group_json");
+        config.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
+        config.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, JsonDeserializer.class);
+        return new DefaultKafkaConsumerFactory<>(config, new StringDeserializer(),
+                new JsonDeserializer<>(Message.class));
+    }
+
+    @Bean
+    public ConcurrentKafkaListenerContainerFactory<String, Message> messageKafkaListenerFactory() {
+        ConcurrentKafkaListenerContainerFactory<String, Message> factory = new ConcurrentKafkaListenerContainerFactory<>();
+        factory.setConsumerFactory(messageConsumerFactory());
+        return factory;
+    }
+    
+    @Bean
+    public ConsumerFactory<String, Message> jsonMessageConsumerFactory() {
+        Map<String, Object> config = new HashMap<>();
+
+        config.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "127.0.0.1:9092");
+        config.put(ConsumerConfig.GROUP_ID_CONFIG, "group_json");
+        config.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
+        config.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, JsonDeserializer.class);
+        return new DefaultKafkaConsumerFactory<>(config, new StringDeserializer(),
+                new JsonDeserializer<>(Message.class));
+    }
+
+    @Bean
+    public ConcurrentKafkaListenerContainerFactory<String, Message> jsonMessageKafkaListenerFactory() {
+        ConcurrentKafkaListenerContainerFactory<String, Message> factory = new ConcurrentKafkaListenerContainerFactory<>();
+        factory.setConsumerFactory(jsonMessageConsumerFactory());
+        return factory;
+    }
+
 }
