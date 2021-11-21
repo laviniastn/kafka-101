@@ -21,7 +21,7 @@ public class MsgController {
 	@PostMapping(value = "/post", consumes = { "application/json" }, produces = { "application/json" })
 	public String post(@RequestBody Message msg) {
 
-		kafkaTemplate.send(TOPIC, new Message("Lavinia", "Message"));
+		kafkaTemplate.send(TOPIC, msg);
 
 		return "Message published successfully";
 	}
